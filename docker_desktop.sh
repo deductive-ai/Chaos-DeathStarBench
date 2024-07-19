@@ -5,5 +5,5 @@ kubectl apply -Rf "./hotelReservation/kubernetes/"
 cd hotelReservation
 ./wrk -D exp -t 2 -c 2 -d 30 -L -s ./wrk2_lua_scripts/mixed-workload_type_1.lua http://frontend.hotel-res.svc.cluster.local:5000 -R 2 
 
-# ./hotelReservation/build_docker_images.sh 
+# kubectl get pods
 # kubectl delete pods --all
