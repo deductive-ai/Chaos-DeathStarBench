@@ -1,4 +1,4 @@
-FROM golang:1.21 as builder
+FROM golang:1.21 AS builder
 
 WORKDIR /workspace
 
@@ -18,3 +18,4 @@ COPY config.json config.json
 
 RUN CGO_ENABLED=0 GOOS=linux GO111MODULE=on go install -ldflags="-s -w" -mod=vendor ./cmd/...
 
+RUN cp $GOPATH/bin/* .

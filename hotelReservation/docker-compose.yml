@@ -13,6 +13,13 @@ services:
       replicas: 1
       restart_policy:
         condition: any
+      resources:
+        limits:
+          cpus: '4.0'        # Limit the service to 2 CPUs
+          memory: '2048M'    # Limit the service to 1GB of memory
+        reservations:
+          cpus: '1.0'        # Reserve 1 CPU for this service
+          memory: '512M'     # Reserve 512MB of memory for this service      
 
   frontend:
     configs:
@@ -24,7 +31,8 @@ services:
       - JAEGER_SAMPLE_RATIO
       - LOG_LEVEL
     build: .
-    image: deathstarbench/hotel-reservation:latest
+    image: krushna/hotel-reservation:latest
+    imagePullPolicy: IfNotPresent
     entrypoint: frontend
     ports:
       - "5000:5000"
@@ -46,7 +54,8 @@ services:
       - JAEGER_SAMPLE_RATIO
       - LOG_LEVEL
     build: .
-    image: deathstarbench/hotel-reservation:latest
+    image: krushna/hotel-reservation:latest
+    imagePullPolicy: IfNotPresent
     entrypoint: profile
     depends_on:
       - mongodb-profile
@@ -68,7 +77,8 @@ services:
       - JAEGER_SAMPLE_RATIO
       - LOG_LEVEL
     build: .
-    image: deathstarbench/hotel-reservation:latest
+    image: krushna/hotel-reservation:latest
+    imagePullPolicy: IfNotPresent
     entrypoint: search
     depends_on:
       - consul
@@ -88,7 +98,8 @@ services:
       - JAEGER_SAMPLE_RATIO
       - LOG_LEVEL
     build: .
-    image: deathstarbench/hotel-reservation:latest
+    image: krushna/hotel-reservation:latest
+    imagePullPolicy: IfNotPresent
     entrypoint: geo
     depends_on:
       - mongodb-geo
@@ -109,7 +120,8 @@ services:
       - JAEGER_SAMPLE_RATIO
       - LOG_LEVEL
     build: .
-    image: deathstarbench/hotel-reservation:latest
+    image: krushna/hotel-reservation:latest
+    imagePullPolicy: IfNotPresent
     entrypoint: rate
     depends_on:
       - mongodb-rate
@@ -164,7 +176,8 @@ services:
       - JAEGER_SAMPLE_RATIO
       - LOG_LEVEL
     build: .
-    image: deathstarbench/hotel-reservation:latest
+    image: krushna/hotel-reservation:latest
+    imagePullPolicy: IfNotPresent
     entrypoint: recommendation
     depends_on:
       - mongodb-recommendation
@@ -185,7 +198,8 @@ services:
       - JAEGER_SAMPLE_RATIO
       - LOG_LEVEL
     build: .
-    image: deathstarbench/hotel-reservation:latest
+    image: krushna/hotel-reservation:latest
+    imagePullPolicy: IfNotPresent
     entrypoint: user
     depends_on:
       - mongodb-user
@@ -206,7 +220,8 @@ services:
       - JAEGER_SAMPLE_RATIO
       - LOG_LEVEL
     build: .
-    image: deathstarbench/hotel-reservation:latest
+    image: krushna/hotel-reservation:latest
+    imagePullPolicy: IfNotPresent
     entrypoint: reservation
     depends_on:
       - mongodb-reservation
